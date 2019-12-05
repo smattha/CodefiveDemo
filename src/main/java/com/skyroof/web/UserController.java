@@ -1,7 +1,7 @@
 package com.skyroof.web;
 
+import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
-import com.skyroof.model.entities.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

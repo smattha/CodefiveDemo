@@ -4,8 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "permission", schema = "skyroof")
-@IdClass(PermissionEntityPK.class)
+@Table(name = "permission", schema = "skyroof", catalog = "")
 public class PermissionEntity {
     private int permissionId;
     private int userId;
@@ -22,7 +21,7 @@ public class PermissionEntity {
         this.permissionId = permissionId;
     }
 
-    @Id
+    @Basic
     @Column(name = "userID")
     public int getUserId() {
         return userId;
@@ -32,7 +31,7 @@ public class PermissionEntity {
         this.userId = userId;
     }
 
-    @Id
+    @Basic
     @Column(name = "projectID")
     public int getProjectId() {
         return projectId;

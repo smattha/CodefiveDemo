@@ -9,13 +9,13 @@ import java.util.List;
 
 @Repository
 public interface UserDAO extends  CrudRepository<UsersEntity, Integer> {
-    @Override
-    List<UsersEntity> findAll();
+//    @Override
+//    List<UsersEntity> findAll();
     //List<UsersEntity> findByIdLike(int id);
     //List<UsersEntity> findByDateOfBirthGreaterThan(Date date);
 
-//    @Override
-//    <S extends Person> S save(S s);
+    @Override
+    <S extends UsersEntity> S save(S s);
 //
 //    @Override
 //    void deleteById(Long aLong);

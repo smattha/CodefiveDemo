@@ -4,8 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "issues", schema = "skyroof")
-@IdClass(IssuesEntityPK.class)
+@Table(name = "issues", schema = "skyroof", catalog = "")
 public class IssuesEntity {
     private int issueId;
     private String title;
@@ -15,6 +14,8 @@ public class IssuesEntity {
     private byte isHidden;
     private int projectId;
     private int statusId;
+    private int assignor;
+    private int assignee;
 
     @Id
     @Column(name = "issueID")
@@ -76,7 +77,7 @@ public class IssuesEntity {
         this.isHidden = isHidden;
     }
 
-    @Id
+    @Basic
     @Column(name = "projectID")
     public int getProjectId() {
         return projectId;
@@ -86,7 +87,7 @@ public class IssuesEntity {
         this.projectId = projectId;
     }
 
-    @Id
+    @Basic
     @Column(name = "statusID")
     public int getStatusId() {
         return statusId;
@@ -94,6 +95,26 @@ public class IssuesEntity {
 
     public void setStatusId(int statusId) {
         this.statusId = statusId;
+    }
+
+    @Basic
+    @Column(name = "assignor")
+    public int getAssignor() {
+        return assignor;
+    }
+
+    public void setAssignor(int assignor) {
+        this.assignor = assignor;
+    }
+
+    @Basic
+    @Column(name = "assignee")
+    public int getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(int assignee) {
+        this.assignee = assignee;
     }
 
     @Override
@@ -105,6 +126,8 @@ public class IssuesEntity {
                 isHidden == that.isHidden &&
                 projectId == that.projectId &&
                 statusId == that.statusId &&
+                assignor == that.assignor &&
+                assignee == that.assignee &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(issueDescription, that.issueDescription) &&
                 Objects.equals(issueType, that.issueType) &&
@@ -113,6 +136,6 @@ public class IssuesEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(issueId, title, issueDescription, issueType, otherDetails, isHidden, projectId, statusId);
+        return Objects.hash(issueId, title, issueDescription, issueType, otherDetails, isHidden, projectId, statusId, assignor, assignee);
     }
 }

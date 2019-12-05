@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `skyroof`.`issues` (
   `statusID` INT(255) NOT NULL,
   `assignor` INT NOT NULL,
   `assignee` INT NOT NULL,
-  PRIMARY KEY (`issueID`, `projectID`, `statusID`),
+  PRIMARY KEY (`issueID`),
   INDEX `fk_issues_projects_idx` (`projectID` ASC),
   INDEX `fk_issues_issuestatus1_idx` (`statusID` ASC),
   INDEX `fk_issues_users2_idx` (`assignor` ASC),
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `skyroof`.`permission` (
   `userID` INT NOT NULL,
   `projectID` INT(255) NOT NULL,
   `permissionDescriptionl` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`userID`, `projectID`, `permissionID`),
+  PRIMARY KEY (`permissionID`),
   INDEX `fk_permission_users1_idx` (`userID` ASC),
   INDEX `fk_permission_projects1_idx` (`projectID` ASC),
   CONSTRAINT `fk_permission_users1`
