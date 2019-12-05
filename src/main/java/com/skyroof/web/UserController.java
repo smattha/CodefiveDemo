@@ -19,6 +19,17 @@ public class UserController {
         return all;
     }
 
+    @GetMapping("/saveUser")
+    public void saveUser(){
+        UsersEntity newUser = new UsersEntity();
+        newUser.setEmail("asdfgg");
+        newUser.setPswd("1234");
+        newUser.setUsername("evi");
+        userDao.save(newUser);
+    }
+//  if assignor === sdfh && assignee ==  && ->
+    // List<UsersEntity> filtered = (List<UsersEntity>) userDao.filter("filtra,,,,)
+ //return filtered;
 //    @ResponseBody
 //    @GetMapping("/getById/{id}")
 //    public Person getById(@PathVariable("id") Long personId) {
