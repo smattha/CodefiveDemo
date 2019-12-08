@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface UserDAO extends  CrudRepository<UsersEntity, Integer> {
-//    @Override
-//    List<UsersEntity> findAll();
+    @Override
+    List<UsersEntity> findAll();
     //List<UsersEntity> findByIdLike(int id);
     //List<UsersEntity> findByDateOfBirthGreaterThan(Date date);
 

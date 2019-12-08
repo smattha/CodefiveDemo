@@ -12,6 +12,9 @@ public class UserController {
     @Autowired
     private UserDAO userDao;
 
+    @Autowired
+    private IssueDAO issueDAO;
+
     @ResponseBody
     @GetMapping("/getAllPersons")
     public List<UsersEntity> getAllUsers() {
@@ -22,10 +25,33 @@ public class UserController {
     @GetMapping("/saveUser")
     public void saveUser(){
         UsersEntity newUser = new UsersEntity();
-        newUser.setEmail("asdfgg");
+        newUser.setEmail("asd@mail.com");
         newUser.setPswd("1234");
-        newUser.setUsername("evi");
+        newUser.setUsername("chr");
         userDao.save(newUser);
+    }
+    @GetMapping("/saveIssue")
+    public void saveIssue(){
+        IssuesEntity newIssue = new IssuesEntity();
+        newIssue.setAssignee(1);
+        newIssue.setAssignor(2);
+        newIssue.setIsHidden((byte) 101);
+        newIssue.setIssueDescription("Just a description");
+        newIssue.setIssueId(5);
+        newIssue.setIssueType("type1");
+        newIssue.setProjectId(212);
+        newIssue.setTitle("big issue");
+        newIssue.setStatusId(0);
+
+        issueDAO.save(newIssue);
+
+
+    }
+
+    @GetMapping("/getAllIssues")
+    public List<IssuesEntity> getAllIssues() {
+        List<IssuesEntity> all = (List<IssuesEntity>) issueDAO.findAll();
+        return all;
     }
 //  if assignor === sdfh && assignee ==  && ->
     // List<UsersEntity> filtered = (List<UsersEntity>) userDao.filter("filtra,,,,)

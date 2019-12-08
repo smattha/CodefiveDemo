@@ -138,4 +138,5 @@ public class IssuesEntity {
     public int hashCode() {
         return Objects.hash(issueId, title, issueDescription, issueType, otherDetails, isHidden, projectId, statusId, assignor, assignee);
     }
+
 }
