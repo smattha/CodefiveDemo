@@ -53,6 +53,17 @@ public class UserController {
         List<IssuesEntity> all = (List<IssuesEntity>) issueDAO.findAll();
         return all;
     }
+
+
+
+      @PostMapping("/savenewIssue")
+    public @ResponseBody IssuesEntity  savenewissue(@RequestBody IssuesEntity issuesEntity) {
+        System.out.println(issuesEntity.toString());
+        IssuesEntity save = issueDAO.save(issuesEntity);
+        return save;
+    }
+
+
 //  if assignor === sdfh && assignee ==  && ->
     // List<UsersEntity> filtered = (List<UsersEntity>) userDao.filter("filtra,,,,)
  //return filtered;

@@ -139,4 +139,19 @@ public class IssuesEntity {
         return Objects.hash(issueId, title, issueDescription, issueType, otherDetails, isHidden, projectId, statusId, assignor, assignee);
     }
 
+    @Override
+    public String toString() {
+        return "IssuesEntity{" +
+                "issueId=" + issueId +
+                ", title='" + title + '\'' +
+                ", issueDescription='" + issueDescription + '\'' +
+                ", issueType='" + issueType + '\'' +
+                ", otherDetails='" + otherDetails + '\'' +
+                ", isHidden=" + isHidden +
+                ", projectId=" + projectId +
+                ", statusId=" + statusId +
+                ", assignor=" + assignor +
+                ", assignee=" + assignee +
+                '}';
+    }
 }
