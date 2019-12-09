@@ -5,9 +5,7 @@ import com.skyroof.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -75,6 +73,13 @@ public class UserController {
     public List<IssuesEntity> issueQuery(){
         List<IssuesEntity> all = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(1, "", 1, 3, "", 1);
         return all;
+    }
+
+    @PostMapping("/savenewIssue")
+    public @ResponseBody IssuesEntity  savenewissue(@RequestBody IssuesEntity issuesEntity) {
+        System.out.println(issuesEntity.toString());
+        IssuesEntity save = issueDAO.save(issuesEntity);
+        return save;
     }
 
 
