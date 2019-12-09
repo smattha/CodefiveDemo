@@ -5,7 +5,9 @@ import com.skyroof.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -53,6 +55,30 @@ public class UserController {
         List<IssuesEntity> all = (List<IssuesEntity>) issueDAO.findAll();
         return all;
     }
+
+//    @GetMapping("/firstQuery")
+//    public UsersEntity firstQuery(){
+//        Optional<UsersEntity> user = userDao.findById(1);
+//        return user.get();
+//        //HashMap<Integer, UsersEntity> all = (HashMap<Integer, UsersEntity>) userDao.findByIdLike(1).orElse(null);
+//        //return all;
+//    }
+
+    @GetMapping("/getByName")
+    public List<UsersEntity> getByName(){
+        //public List<UsersEntity> userDao.findByName("%e%");
+        List<UsersEntity> all = userDao.findUsersEntitiesByUsernameContainingAndEmailContaining("e", "");
+        return all;
+    }
+
+    @GetMapping("/issueQuery")
+    public List<IssuesEntity> issueQuery(){
+        List<IssuesEntity> all = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(1, "", 1, 3, "", 1);
+        return all;
+    }
+
+
+
 //  if assignor === sdfh && assignee ==  && ->
     // List<UsersEntity> filtered = (List<UsersEntity>) userDao.filter("filtra,,,,)
  //return filtered;

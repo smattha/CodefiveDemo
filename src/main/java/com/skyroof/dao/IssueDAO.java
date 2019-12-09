@@ -16,6 +16,8 @@ public interface IssueDAO extends CrudRepository<IssuesEntity, Integer> {
     @Override
     <S extends IssuesEntity> S save(S s);
 
+    List<IssuesEntity> findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(Integer projectId, String title, Integer assignor, Integer assignee, String issueType, Integer statusId);
+
 
 
 }
