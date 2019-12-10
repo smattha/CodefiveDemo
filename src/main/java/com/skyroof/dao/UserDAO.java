@@ -20,6 +20,7 @@ public interface UserDAO extends  CrudRepository<UsersEntity, Integer> {
     //List<UsersEntity> findByDateOfBirthGreaterThan(Date date);
 
     List<UsersEntity> findUsersEntitiesByUsernameContainingAndEmailContaining(String username, String email);
+    UsersEntity findByUsername(String username);
 
     @Override
     <S extends UsersEntity> S save(S s);

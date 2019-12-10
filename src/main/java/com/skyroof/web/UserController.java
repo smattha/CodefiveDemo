@@ -82,6 +82,16 @@ public class UserController {
         return save;
     }
 
+    @PostMapping("/login")
+    public @ResponseBody String login(@RequestBody LoginDetails ld){
+        UsersEntity user = userDao.findByUsername(ld.getUsername());
+        if (user == null) return "Error occurred during Login";
+        //else System.out.println(user.toString());
+        if (user.getPswd().equals(ld.getPswd()))
+        return "Login Successful!";
+        else return "Error occurred during Login";
+    }
+
 
 
 //  if assignor === sdfh && assignee ==  && ->
