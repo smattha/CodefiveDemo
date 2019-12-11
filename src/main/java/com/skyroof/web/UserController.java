@@ -85,8 +85,10 @@ public class UserController {
 
     @PostMapping("/login")
     public @ResponseBody String login(@RequestBody LoginDetails ld){
+        System.out.println(ld.toString());
         UsersEntity user = userDao.findByUsername(ld.getUsername());
         if (user == null) return "Error occurred during Login";
+        System.out.println("User data from db" +user.toString());
         //else System.out.println(user.toString());
         if (user.getPswd().equals(ld.getPswd()))
         return "Login Successful!";
