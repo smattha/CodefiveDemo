@@ -1,16 +1,8 @@
 package com.skyroof.model.entities;
 
 public class LoginDetails {
-    private String username;
-    private String pswd;
-
-    public LoginDetails() {
-    }
-
-    public LoginDetails(String username, String pswd) {
-        this.username = username;
-        this.pswd = pswd;
-    }
+    String username;
+    String pswd;
 
     public String getUsername() {
         return username;

@@ -4,27 +4,27 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "issues", schema = "skyroof", catalog = "")
+@Table(name = "issues", schema = "skyroof")
 public class IssuesEntity {
-    private int issueId;
+    private int issueid;
     private String title;
     private String issueDescription;
     private String issueType;
     private String otherDetails;
     private byte isHidden;
-    private int projectId;
-    private int statusId;
+    private int projectid;
+    private int statusid;
     private int assignor;
     private int assignee;
 
     @Id
-    @Column(name = "issueID")
+    @Column(name = "issueid")
     public int getIssueId() {
-        return issueId;
+        return issueid;
     }
 
-    public void setIssueId(int issueId) {
-        this.issueId = issueId;
+    public void setIssueId(int issueid) {
+        this.issueid = issueid;
     }
 
     @Basic
@@ -38,7 +38,7 @@ public class IssuesEntity {
     }
 
     @Basic
-    @Column(name = "issueDescription")
+    @Column(name = "issue_description")
     public String getIssueDescription() {
         return issueDescription;
     }
@@ -48,7 +48,7 @@ public class IssuesEntity {
     }
 
     @Basic
-    @Column(name = "issueType")
+    @Column(name = "issue_type")
     public String getIssueType() {
         return issueType;
     }
@@ -58,7 +58,7 @@ public class IssuesEntity {
     }
 
     @Basic
-    @Column(name = "otherDetails")
+    @Column(name = "other_details")
     public String getOtherDetails() {
         return otherDetails;
     }
@@ -68,7 +68,7 @@ public class IssuesEntity {
     }
 
     @Basic
-    @Column(name = "isHidden")
+    @Column(name = "is_hidden")
     public byte getIsHidden() {
         return isHidden;
     }
@@ -78,23 +78,23 @@ public class IssuesEntity {
     }
 
     @Basic
-    @Column(name = "projectID")
+    @Column(name = "projectid")
     public int getProjectId() {
-        return projectId;
+        return projectid;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setProjectId(int projectid) {
+        this.projectid = projectid;
     }
 
     @Basic
-    @Column(name = "statusID")
+    @Column(name = "statusid")
     public int getStatusId() {
-        return statusId;
+        return statusid;
     }
 
-    public void setStatusId(int statusId) {
-        this.statusId = statusId;
+    public void setStatusId(int statusid) {
+        this.statusid = statusid;
     }
 
     @Basic
@@ -122,10 +122,10 @@ public class IssuesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IssuesEntity that = (IssuesEntity) o;
-        return issueId == that.issueId &&
+        return issueid == that.issueid &&
                 isHidden == that.isHidden &&
-                projectId == that.projectId &&
-                statusId == that.statusId &&
+                projectid == that.projectid &&
+                statusid == that.statusid &&
                 assignor == that.assignor &&
                 assignee == that.assignee &&
                 Objects.equals(title, that.title) &&
@@ -136,22 +136,6 @@ public class IssuesEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(issueId, title, issueDescription, issueType, otherDetails, isHidden, projectId, statusId, assignor, assignee);
-    }
-
-    @Override
-    public String toString() {
-        return "IssuesEntity{" +
-                "issueId=" + issueId +
-                ", title='" + title + '\'' +
-                ", issueDescription='" + issueDescription + '\'' +
-                ", issueType='" + issueType + '\'' +
-                ", otherDetails='" + otherDetails + '\'' +
-                ", isHidden=" + isHidden +
-                ", projectId=" + projectId +
-                ", statusId=" + statusId +
-                ", assignor=" + assignor +
-                ", assignee=" + assignee +
-                '}';
+        return Objects.hash(issueid, title, issueDescription, issueType, otherDetails, isHidden, projectid, statusid, assignor, assignee);
     }
 }

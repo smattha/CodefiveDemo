@@ -29,15 +29,15 @@ VALUES ('open'),
 	('resolved'),
 	('closed');
 	
-INSERT INTO issues(title, issue_description, issue_type, is_hidden, projectid, statusid, assignor, assignee)
-VALUES ('Issue 1', 'Describes the issue', 'other', 	0, 1, 1, 1, 3),
-	('Issue 2', 'Describes the issue', 'error', 0, 1, 2, 4, 5),
-	('Issue 3', 'Describes the issue', 'other', 0, 1, 3, 1, 5),
-	('Issue 4', 'Describes the issue', 'error', 0, 2, 3, 4, 5),
-	('Issue 5', 'Describes the issue', 'error', 0, 2, 3, 5, 4),
-	('Issue 6', 'Describes the issue', 'improvement', 0, 2, 2, 2, 4),
-	('Issue 7', 'Describes the issue', 'other', 0, 1, 1, 4, 1),
-	('Issue 8', 'Describes the issue', 'other', 0, 1, 1, 4, 3),
-	('Issue 9', 'Describes the issue', 'error', 0, 3, 1, 5, 3),
-	('Issue 10', 'Describes the issue', 'improvement', 0, 3, 2, 1, 3),
-	('Issue 11', 'Describes the issue', 'improvement', 0,3, 3, 1, 3);
+INSERT INTO issues(title, issue_description, issue_type, is_hidden, projectid, statusid, assignor, assignee, created_by)
+VALUES ('Issue 1', 'Describes the issue', 'other', 	0, 1, 1, 1, 3, "evi"),
+	('Issue 2', 'Describes the issue', 'error', 0, 1, 2, 4, 5, "nikos"),
+	('Issue 3', 'Describes the issue', 'other', 0, 1, 3, 1, 5, "evi"),
+	('Issue 4', 'Describes the issue', 'error', 0, 2, 3, 4, 5, "nikos"),
+	('Issue 5', 'Describes the issue', 'error', 0, 2, 3, 5, 4, "ilias"),
+	('Issue 6', 'Describes the issue', 'improvement', 0, 2, 2, 2, 4, "xristos"),
+	('Issue 7', 'Describes the issue', 'other', 0, 1, 1, 4, 1, "nikos"),
+	('Issue 8', 'Describes the issue', 'other', 0, 1, 1, 4, 3, "nikos"),
+	('Issue 9', 'Describes the issue', 'error', 0, 3, 1, 5, 3, "ilias"),
+	('Issue 10', 'Describes the issue', 'improvement', 0, 3, 2, 1, 3, "evi"),
+	('Issue 11', 'Describes the issue', 'improvement', 0,3, 3, 1, 3, "evi");

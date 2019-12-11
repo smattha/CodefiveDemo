@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `skyroof`.`issues` (
   `statusid` INT(255) NOT NULL,
   `assignor` INT NOT NULL,
   `assignee` INT NOT NULL,
+  `created_by` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`issueid`),
   INDEX `fk_issues_projects_idx` (`projectid` ASC),
   INDEX `fk_issues_issuestatus1_idx` (`statusid` ASC),
@@ -105,11 +106,11 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `skyroof`.`permission`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `skyroof`.`permission` (
-  `permission_id` INT NOT NULL AUTO_INCREMENT,
+  `permissionid` INT NOT NULL AUTO_INCREMENT,
   `userid` INT NOT NULL,
   `projectid` INT(255) NOT NULL,
   `permission_description` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`permission_id`),
+  PRIMARY KEY (`permissionid`),
   INDEX `fk_permission_users1_idx` (`userid` ASC),
   INDEX `fk_permission_projects1_idx` (`projectid` ASC),
   CONSTRAINT `fk_permission_users1`

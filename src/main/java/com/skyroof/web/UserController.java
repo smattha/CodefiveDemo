@@ -5,15 +5,19 @@ import com.skyroof.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class UserController {
     @Autowired
     private UserDAO userDao;
-
+    @Autowired
+    private PermissionDAO permissionDAO;
     @Autowired
     private IssueDAO issueDAO;
+    @Autowired
+    private ProjectDAO projectDAO;
 
     @ResponseBody
     @GetMapping("/getAllPersons")
@@ -90,6 +94,34 @@ public class UserController {
         if (user.getPswd().equals(ld.getPswd()))
         return "Login Successful!";
         else return "Error occurred during Login";
+    }
+
+    @PostMapping("/findProjectsForUser")
+    public @ResponseBody List<UserProjects> findProjects(@RequestBody String username){
+        UsersEntity user = userDao.findByUsername(username);
+        List<PermissionEntity> all = permissionDAO.findPermissionEntitiesByUserid(user.getUserid());
+        List<UserProjects> userProjects = new ArrayList<>();
+
+        for(int index = 0; index < all.size(); index++){
+            UserProjects up = new UserProjects();
+            ProjectsEntity project = projectDAO.findProjectsEntityByProjectid(all.get(index).getProjectid());
+            up.setProjectId(project.getProjectid());
+            up.setProjectName(project.getProjectName());
+            up.setPermission(all.get(index).getPermissionDescription());
+            userProjects.add(up);
+        }
+        return userProjects;
+    }
+
+    @PostMapping("/findPeopleForProject")
+    public @ResponseBody List<UsersEntity> findUsersForProject(@RequestBody UserId ud){
+        List<PermissionEntity> permissionEntities = permissionDAO.findPermissionEntitiesByProjectid(ud.getId());
+        List<UsersEntity> users = new ArrayList<>();
+        for (int index = 0; index < permissionEntities.size(); index++){
+            UsersEntity u = userDao.findById(permissionEntities.get(index).getUserid());
+            users.add(u);
+        }
+        return users;
     }
 
 

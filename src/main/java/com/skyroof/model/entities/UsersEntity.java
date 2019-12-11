@@ -9,7 +9,7 @@ public class UsersEntity {
     private String username;
     private String pswd;
     private String email;
-    private int userId;
+    private int userid;
 
     @Basic
     @Column(name = "username")
@@ -42,13 +42,13 @@ public class UsersEntity {
     }
 
     @Id
-    @Column(name = "userID")
-    public int getUserId() {
-        return userId;
+    @Column(name = "userid")
+    public int getUserid() {
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class UsersEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersEntity that = (UsersEntity) o;
-        return userId == that.userId &&
+        return userid == that.userid &&
                 Objects.equals(username, that.username) &&
                 Objects.equals(pswd, that.pswd) &&
                 Objects.equals(email, that.email);
@@ -64,16 +64,6 @@ public class UsersEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, pswd, email, userId);
-    }
-
-    @Override
-    public String toString() {
-        return "UsersEntity{" +
-                "username='" + username + '\'' +
-                ", pswd='" + pswd + '\'' +
-                ", email='" + email + '\'' +
-                ", userId=" + userId +
-                '}';
+        return Objects.hash(username, pswd, email, userid);
     }
 }

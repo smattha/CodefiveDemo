@@ -8,6 +8,7 @@
         <datasource-mapping>
           <factory-entry name="NewPersistenceUnit" />
           <factory-entry name="entityManagerFactory" value="6f9273f6-28ad-445d-8991-79c131712dcd" />
+          <factory-entry name="noname-a.xml@0" value="6f9273f6-28ad-445d-8991-79c131712dcd" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/java/META-INF/persistence.xml" />

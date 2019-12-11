@@ -4,51 +4,51 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "permission", schema = "skyroof", catalog = "")
+@Table(name = "permission", schema = "skyroof")
 public class PermissionEntity {
-    private int permissionId;
-    private int userId;
-    private int projectId;
-    private String permissionDescriptionl;
+    private int permissionid;
+    private int userid;
+    private int projectid;
+    private String permissionDescription;
 
     @Id
-    @Column(name = "permissionID")
-    public int getPermissionId() {
-        return permissionId;
+    @Column(name = "permissionid")
+    public int getPermissionid() {
+        return permissionid;
     }
 
-    public void setPermissionId(int permissionId) {
-        this.permissionId = permissionId;
-    }
-
-    @Basic
-    @Column(name = "userID")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setPermissionid(int permissionid) {
+        this.permissionid = permissionid;
     }
 
     @Basic
-    @Column(name = "projectID")
-    public int getProjectId() {
-        return projectId;
+    @Column(name = "userid")
+    public int getUserid() {
+        return userid;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     @Basic
-    @Column(name = "permissionDescriptionl")
-    public String getPermissionDescriptionl() {
-        return permissionDescriptionl;
+    @Column(name = "projectid")
+    public int getProjectid() {
+        return projectid;
     }
 
-    public void setPermissionDescriptionl(String permissionDescriptionl) {
-        this.permissionDescriptionl = permissionDescriptionl;
+    public void setProjectid(int projectid) {
+        this.projectid = projectid;
+    }
+
+    @Basic
+    @Column(name = "permission_description")
+    public String getPermissionDescription() {
+        return permissionDescription;
+    }
+
+    public void setPermissionDescription(String permissionDescription) {
+        this.permissionDescription = permissionDescription;
     }
 
     @Override
@@ -56,14 +56,14 @@ public class PermissionEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PermissionEntity that = (PermissionEntity) o;
-        return permissionId == that.permissionId &&
-                userId == that.userId &&
-                projectId == that.projectId &&
-                Objects.equals(permissionDescriptionl, that.permissionDescriptionl);
+        return permissionid == that.permissionid &&
+                userid == that.userid &&
+                projectid == that.projectid &&
+                Objects.equals(permissionDescription, that.permissionDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(permissionId, userId, projectId, permissionDescriptionl);
+        return Objects.hash(permissionid, userid, projectid, permissionDescription);
     }
 }

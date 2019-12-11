@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "projects", schema = "skyroof", catalog = "")
+@Table(name = "projects", schema = "skyroof")
 public class ProjectsEntity {
-    private int projectId;
+    private int projectid;
     private String projectName;
 
     @Id
-    @Column(name = "projectID")
-    public int getProjectId() {
-        return projectId;
+    @Column(name = "projectid")
+    public int getProjectid() {
+        return projectid;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setProjectid(int projectid) {
+        this.projectid = projectid;
     }
 
     @Basic
-    @Column(name = "projectName")
+    @Column(name = "project_name")
     public String getProjectName() {
         return projectName;
     }
@@ -34,12 +34,12 @@ public class ProjectsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProjectsEntity that = (ProjectsEntity) o;
-        return projectId == that.projectId &&
+        return projectid == that.projectid &&
                 Objects.equals(projectName, that.projectName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, projectName);
+        return Objects.hash(projectid, projectName);
     }
 }
