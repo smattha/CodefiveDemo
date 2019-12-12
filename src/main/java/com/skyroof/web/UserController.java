@@ -40,13 +40,14 @@ public class UserController {
         IssuesEntity newIssue = new IssuesEntity();
         newIssue.setAssignee(1);
         newIssue.setAssignor(2);
-        newIssue.setIsHidden((byte) 101);
-        newIssue.setIssueDescription("Just a description");
-        newIssue.setIssueId(5);
-        newIssue.setIssueType("type1");
-        newIssue.setProjectId(212);
+        newIssue.setIsHidden((byte) 0);
+        newIssue.setIssueDescription("Just a descr");
+        //newIssue.setIssueId(15);
+        newIssue.setIssueType("error");
+        newIssue.setProjectId(2);
         newIssue.setTitle("big issue");
-        newIssue.setStatusId(0);
+        newIssue.setStatusId(1);
+        newIssue.setCreatedBy("xristos");
 
         issueDAO.save(newIssue);
 
@@ -82,6 +83,7 @@ public class UserController {
 
     @PostMapping("/savenewIssue")
     public @ResponseBody IssuesEntity  savenewissue(@RequestBody IssuesEntity issuesEntity) {
+        issuesEntity.setIsHidden((byte) 0);
         System.out.println(issuesEntity.toString());
         IssuesEntity save = issueDAO.save(issuesEntity);
         return save;
