@@ -1,5 +1,6 @@
 package com.skyroof.web;
 
+import com.skyroof.exceptions.NoProjectsFoundException;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +115,7 @@ public class UserController {
             up.setPermission(all.get(index).getPermissionDescription());
             userProjects.add(up);
         }
+        if (userProjects.size()==0) throw new NoProjectsFoundException();
         return userProjects;
     }
 
@@ -126,6 +128,17 @@ public class UserController {
             users.add(u);
         }
         return users;
+    }
+
+    @PostMapping("/delete")
+    public @ResponseBody String deleteIssue(@RequestBody String id){
+        IssuesEntity issue = issueDAO.findByIssueId(Integer.parseInt(id));
+        System.out.println(issue.toString());
+        issue.setIsHidden((byte) 1);
+        System.out.println(issue.toString());
+        issueDAO.save(issue);
+        if (issue.getIsHidden()==1) return "Issue deleted.";
+        else return "Delete failed";
     }
 
 
