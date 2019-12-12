@@ -21,7 +21,7 @@ public class UserController {
     private ProjectDAO projectDAO;
 
     @ResponseBody
-    @GetMapping("/getAllPersons")
+        @GetMapping("/getAllPersons")
     public List<UsersEntity> getAllUsers() {
         List<UsersEntity> all = (List<UsersEntity>) userDao.findAll();
         return all;
@@ -99,8 +99,9 @@ public class UserController {
         else return "Error occurred during Login";
     }
 
-    @PostMapping("/findProjectsForUser")
+        @PostMapping("/findProjectsForUser")
     public @ResponseBody List<UserProjects> findProjects(@RequestBody String username){
+        System.out.println("Username "+ username);
         UsersEntity user = userDao.findByUsername(username);
         List<PermissionEntity> all = permissionDAO.findPermissionEntitiesByUserid(user.getUserid());
         List<UserProjects> userProjects = new ArrayList<>();

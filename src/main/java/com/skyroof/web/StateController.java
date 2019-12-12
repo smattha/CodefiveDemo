@@ -1,0 +1,27 @@
+package com.skyroof.web;
+
+import com.skyroof.dao.*;
+import com.skyroof.model.entities.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+@RestController
+@CrossOrigin(origins = "*")
+public class StateController {
+
+    @Autowired
+    private StatusDao statusDao;
+
+    @ResponseBody
+    @GetMapping("/getStatus")
+    public List<IssuestatusEntity> getAllUsers() {
+        List<IssuestatusEntity> all = (List<IssuestatusEntity>) statusDao.findAll();
+        return all;
+    }
+
+}
