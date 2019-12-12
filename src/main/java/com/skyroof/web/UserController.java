@@ -22,7 +22,7 @@ public class UserController {
     private ProjectDAO projectDAO;
 
     @ResponseBody
-        @GetMapping("/getAllPersons")
+    @GetMapping("/getAllPersons")
     public List<UsersEntity> getAllUsers() {
         List<UsersEntity> all = (List<UsersEntity>) userDao.findAll();
         return all;
@@ -36,24 +36,24 @@ public class UserController {
         newUser.setUsername("chr");
         userDao.save(newUser);
     }
-    @GetMapping("/saveIssue")
-    public void saveIssue(){
-        IssuesEntity newIssue = new IssuesEntity();
-        newIssue.setAssignee(1);
-        newIssue.setAssignor(2);
-        newIssue.setIsHidden((byte) 0);
-        newIssue.setIssueDescription("Just a descr");
-        //newIssue.setIssueId(15);
-        newIssue.setIssueType("error");
-        newIssue.setProjectId(2);
-        newIssue.setTitle("big issue");
-        newIssue.setStatusId(1);
-        newIssue.setCreatedBy("xristos");
-
-        issueDAO.save(newIssue);
-
-
-    }
+//    @GetMapping("/saveIssue")
+//    public void saveIssue(){
+//        IssuesEntity newIssue = new IssuesEntity();
+//        newIssue.setAssignee(1);
+//        newIssue.setAssignor(2);
+//        newIssue.setIsHidden((byte) 0);
+//        newIssue.setIssueDescription("Just a descr");
+//        //newIssue.setIssueId(15);
+//        newIssue.setIssueType("error");
+//        newIssue.setProjectId(2);
+//        newIssue.setTitle("big issue");
+//        newIssue.setStatusId(1);
+//        newIssue.setCreatedBy("xristos");
+//
+//        issueDAO.save(newIssue);
+//
+//
+//    }
 
     @GetMapping("/getAllIssues")
     public List<IssuesEntity> getAllIssues() {
@@ -76,18 +76,28 @@ public class UserController {
         return all;
     }
 
-    @GetMapping("/issueQuery")
-    public List<IssuesEntity> issueQuery(){
-        List<IssuesEntity> all = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(1, "", 1, 3, "", 1);
+    @PostMapping("/issueQuery")
+    public @ResponseBody List<IssuesEntity> issueQuery(@RequestBody QueryDetails qd){
+        List<IssuesEntity> all = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(qd.getProjectId(), qd.getTitle(), qd.getAssignor(), qd.getAssignee(), qd.getIssueType(), qd.getStatusId());
         return all;
     }
 
-    @PostMapping("/savenewIssue")
-    public @ResponseBody IssuesEntity  savenewissue(@RequestBody IssuesEntity issuesEntity) {
-        issuesEntity.setIsHidden((byte) 0);
-        System.out.println(issuesEntity.toString());
-        IssuesEntity save = issueDAO.save(issuesEntity);
-        return save;
+    @PostMapping("/createIssue")
+    public @ResponseBody String createIssue(@RequestBody IssueImport issueImport) {
+        IssuesEntity newIssue = new IssuesEntity();
+        newIssue.setTitle(issueImport.getTitle());
+        newIssue.setIssueDescription(issueImport.getDescription());
+        newIssue.setIssueType(issueImport.getType());
+        newIssue.setOtherDetails(issueImport.getOtherDetails());
+        newIssue.setAssignor(issueImport.getAssignor());
+        newIssue.setAssignee(issueImport.getAssignee());
+        newIssue.setStatusId(issueImport.getStatusId());
+        newIssue.setProjectId(issueImport.getProjectId());
+        newIssue.setCreatedBy(issueImport.getUsername());
+        newIssue.setIsHidden((byte) 0);
+        issueDAO.save(newIssue);
+        //System.out.println(newIssue.toString());
+        return "Issue created";
     }
 
     @PostMapping("/login")
