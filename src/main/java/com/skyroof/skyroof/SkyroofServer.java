@@ -17,13 +17,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.skyroof")
 
 public class SkyroofServer {
-	public static final Logger logger = Logger.getLogger("logger");
+    public static final Logger logger = Logger.getLogger("logger");
 
-	public static void main(String[] args) {
-		logger.info("Skyroof server started");
-		logger.setLevel(Level.ALL);
-		SpringApplication.run(SkyroofServer.class, args);
+    public static void main(String[] args) {
+        logger.info("Skyroof server started");
+        logger.setLevel(Level.ALL);
+        SpringApplication.run(SkyroofServer.class, args);
 
-	}
+    }
 
 }

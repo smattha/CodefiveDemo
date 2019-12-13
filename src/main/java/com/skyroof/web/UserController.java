@@ -3,6 +3,7 @@ package com.skyroof.web;
 import com.skyroof.exceptions.NoProjectsFoundException;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
+import com.skyroof.skyroof.SkyroofServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/saveUser")
-    public void saveUser(){
+    public void saveUser() {
         UsersEntity newUser = new UsersEntity();
         newUser.setEmail("asd@mail.com");
         newUser.setPswd("1234");
@@ -70,20 +71,25 @@ public class UserController {
 //    }
 
     @GetMapping("/getByName")
-    public List<UsersEntity> getByName(){
+    public List<UsersEntity> getByName() {
         //public List<UsersEntity> userDao.findByName("%e%");
         List<UsersEntity> all = userDao.findUsersEntitiesByUsernameContainingAndEmailContaining("e", "");
         return all;
     }
 
     @PostMapping("/issueQuery")
-    public @ResponseBody List<IssuesEntity> issueQuery(@RequestBody QueryDetails qd){
+    public @ResponseBody
+    List<IssuesEntity> issueQuery(@RequestBody QueryDetails qd) {
+        SkyroofServer.logger.info("Query issue was called ");
         List<IssuesEntity> all = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(qd.getProjectId(), qd.getTitle(), qd.getAssignor(), qd.getAssignee(), qd.getIssueType(), qd.getStatusId());
+        SkyroofServer.logger.info("Query issue is about to return ");
+        SkyroofServer.logger.info("Number of results " + all.size());
         return all;
     }
 
     @PostMapping("/createIssue")
-    public @ResponseBody String createIssue(@RequestBody IssueImport issueImport) {
+    public @ResponseBody
+    String createIssue(@RequestBody IssueImport issueImport) {
         IssuesEntity newIssue = new IssuesEntity();
         newIssue.setTitle(issueImport.getTitle());
         newIssue.setIssueDescription(issueImport.getDescription());
@@ -101,25 +107,27 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public @ResponseBody String login(@RequestBody LoginDetails ld){
+    public @ResponseBody
+    String login(@RequestBody LoginDetails ld) {
         System.out.println(ld.toString());
         UsersEntity user = userDao.findByUsername(ld.getUsername());
         if (user == null) return "Error occurred during Login";
-        System.out.println("User data from db" +user.toString());
+        System.out.println("User data from db" + user.toString());
         //else System.out.println(user.toString());
         if (user.getPswd().equals(ld.getPswd()))
-        return "Login Successful!";
+            return "Login Successful!";
         else return "Error occurred during Login";
     }
 
-        @PostMapping("/findProjectsForUser")
-    public @ResponseBody List<UserProjects> findProjects(@RequestBody String username){
-        System.out.println("Username "+ username);
+    @PostMapping("/findProjectsForUser")
+    public @ResponseBody
+    List<UserProjects> findProjects(@RequestBody String username) {
+        System.out.println("Username " + username);
         UsersEntity user = userDao.findByUsername(username);
         List<PermissionEntity> all = permissionDAO.findPermissionEntitiesByUserid(user.getUserid());
         List<UserProjects> userProjects = new ArrayList<>();
 
-        for(int index = 0; index < all.size(); index++){
+        for (int index = 0; index < all.size(); index++) {
             UserProjects up = new UserProjects();
             ProjectsEntity project = projectDAO.findProjectsEntityByProjectid(all.get(index).getProjectid());
             up.setProjectId(project.getProjectid());
@@ -127,15 +135,16 @@ public class UserController {
             up.setPermission(all.get(index).getPermissionDescription());
             userProjects.add(up);
         }
-        if (userProjects.size()==0) throw new NoProjectsFoundException();
+        if (userProjects.size() == 0) throw new NoProjectsFoundException();
         return userProjects;
     }
 
     @PostMapping("/findPeopleForProject")
-    public @ResponseBody List<UsersEntity> findUsersForProject(@RequestBody UserId ud){
+    public @ResponseBody
+    List<UsersEntity> findUsersForProject(@RequestBody UserId ud) {
         List<PermissionEntity> permissionEntities = permissionDAO.findPermissionEntitiesByProjectid(ud.getId());
         List<UsersEntity> users = new ArrayList<>();
-        for (int index = 0; index < permissionEntities.size(); index++){
+        for (int index = 0; index < permissionEntities.size(); index++) {
             UsersEntity u = userDao.findById(permissionEntities.get(index).getUserid());
             users.add(u);
         }
@@ -143,21 +152,21 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-    public @ResponseBody String deleteIssue(@RequestBody String id){
+    public @ResponseBody
+    String deleteIssue(@RequestBody String id) {
         IssuesEntity issue = issueDAO.findByIssueId(Integer.parseInt(id));
         System.out.println(issue.toString());
         issue.setIsHidden((byte) 1);
         System.out.println(issue.toString());
         issueDAO.save(issue);
-        if (issue.getIsHidden()==1) return "Issue deleted.";
+        if (issue.getIsHidden() == 1) return "Issue deleted.";
         else return "Delete failed";
     }
 
 
-
 //  if assignor === sdfh && assignee ==  && ->
     // List<UsersEntity> filtered = (List<UsersEntity>) userDao.filter("filtra,,,,)
- //return filtered;
+    //return filtered;
 //    @ResponseBody
 //    @GetMapping("/getById/{id}")
 //    public Person getById(@PathVariable("id") Long personId) {
