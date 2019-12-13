@@ -16,6 +16,7 @@ public class IssuesEntity {
     private int statusid;
     private int assignor;
     private int assignee;
+    private String createdBy;
 
     @Id
     @Column(name = "issueid")
@@ -117,6 +118,17 @@ public class IssuesEntity {
         this.assignee = assignee;
     }
 
+
+    @Basic
+    @Column(name = "created_by")
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -128,10 +140,11 @@ public class IssuesEntity {
                 statusid == that.statusid &&
                 assignor == that.assignor &&
                 assignee == that.assignee &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(issueDescription, that.issueDescription) &&
-                Objects.equals(issueType, that.issueType) &&
-                Objects.equals(otherDetails, that.otherDetails);
+                title.equals(that.title) &&
+                issueDescription.equals(that.issueDescription) &&
+                issueType.equals(that.issueType) &&
+                otherDetails.equals(that.otherDetails) &&
+                createdBy.equals(that.createdBy);
     }
 
     @Override
