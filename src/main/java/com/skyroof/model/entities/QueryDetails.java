@@ -7,6 +7,7 @@ public class QueryDetails {
     int assignee;
     String issueType;
     int statusId;
+    String username;
 
     public int getProjectId() {
         return projectId;
@@ -56,6 +57,14 @@ public class QueryDetails {
         this.statusId = statusId;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "QueryDetails{" +
@@ -65,6 +74,7 @@ public class QueryDetails {
                 ", assignee=" + assignee +
                 ", issueType='" + issueType + '\'' +
                 ", statusId=" + statusId +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

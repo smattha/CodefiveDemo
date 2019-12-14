@@ -1,6 +1,6 @@
 package com.skyroof.model.entities;
 
-public class OpenIssue {
+public class IssueObject {
     String projectTitle;
     String issueTitle;
     String assignor;

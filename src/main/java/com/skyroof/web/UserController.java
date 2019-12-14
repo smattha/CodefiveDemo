@@ -29,39 +29,42 @@ public class UserController {
     }
 
     @PostMapping("/findProjectsForUser")
-    public @ResponseBody List<UserProjects> findProjects(@RequestBody String username){
-        System.out.println("Username "+ username);
+    public @ResponseBody
+    List<UserProjects> findProjects(@RequestBody String username) {
+        System.out.println("Username " + username);
         UsersEntity user = userDao.findByUsername(username);
-        List<PermissionEntity> all = permissionDAO.findPermissionEntitiesByUserid(user.getUserid());
+        List<PermissionEntity> permissions = permissionDAO.findPermissionEntitiesByUserid(user.getUserid());
         List<UserProjects> userProjects = new ArrayList<>();
 
-        for(int index = 0; index < all.size(); index++){
+        for (int index = 0; index < permissions.size(); index++) {
             UserProjects up = new UserProjects();
-            ProjectsEntity project = projectDAO.findProjectsEntityByProjectid(all.get(index).getProjectid());
+            ProjectsEntity project = projectDAO.findProjectsEntityByProjectid(permissions.get(index).getProjectid());
             up.setProjectId(project.getProjectid());
             up.setProjectName(project.getProjectName());
-            up.setPermission(all.get(index).getPermissionDescription());
+            up.setPermission(permissions.get(index).getPermissionDescription());
             userProjects.add(up);
         }
-        if (userProjects.size()==0) throw new NoProjectsFoundException();
+        if (userProjects.size() == 0) throw new NoProjectsFoundException();
         return userProjects;
     }
 
     @PostMapping("/showOpenIssues")
-    public @ResponseBody List<OpenIssue> showOpenIssues(@RequestBody String username){
+    public @ResponseBody
+    List<IssueObject> showOpenIssues(@RequestBody String username) {
         List<UserProjects> userProjects = findProjects(username);
-        List<OpenIssue> openIssues = new ArrayList<>();
-        for (int index = 0; index < userProjects.size(); index++){
+        List<IssueObject> openIssues = new ArrayList<>();
+        for (int index = 0; index < userProjects.size(); index++) {
             List<IssuesEntity> issues = issueDAO.findIssuesEntitiesByProjectId(userProjects.get(index).getProjectId());
-            for (int index2 = 0; index2 < issues.size(); index2++){
-                if(issues.get(index2).getStatusId() == 1){
-                    OpenIssue oi = new OpenIssue();
+            for (int index2 = 0; index2 < issues.size(); index2++) {
+                if (issues.get(index2).getStatusId() == 1) {
+                    IssueObject oi = new IssueObject();
                     oi.setProjectTitle(userProjects.get(index).getProjectName());
                     oi.setIssueTitle(issues.get(index2).getTitle());
                     UsersEntity user = userDao.findById(issues.get(index2).getAssignor());
                     oi.setAssignor(user.getUsername());
                     oi.setStatus(issues.get(index2).getStatusId());
                     oi.setType(issues.get(index2).getIssueType());
+                    oi.setPermission(userProjects.get(index).getPermission());
                     openIssues.add(oi);
                 }
             }
@@ -70,15 +73,54 @@ public class UserController {
     }
 
     @PostMapping("/showUserOpenIssue")
-    public @ResponseBody List<OpenIssue> showUserOpenIssues(@RequestBody String username){
-        List<OpenIssue> allOpenIssues = showOpenIssues(username);
-        List<OpenIssue> UserOpenIssues = new ArrayList<>();
-        for (int index = 0; index < allOpenIssues.size(); index++){
-            if(allOpenIssues.get(index).getAssignor().equals(username))
+    public @ResponseBody
+    List<IssueObject> showUserOpenIssues(@RequestBody String username) {
+        List<IssueObject> allOpenIssues = showOpenIssues(username);
+        List<IssueObject> UserOpenIssues = new ArrayList<>();
+        for (int index = 0; index < allOpenIssues.size(); index++) {
+            if (allOpenIssues.get(index).getAssignor().equals(username))
                 UserOpenIssues.add(allOpenIssues.get(index));
         }
         return UserOpenIssues;
     }
+
+    @PostMapping("/issueQuery")
+    public @ResponseBody
+    List<IssueObject> issueQuery(@RequestBody QueryDetails qd) {
+        List<UserProjects> userProjects = findProjects(qd.getUsername());
+        List<IssueObject> openIssues = new ArrayList<>();
+        for (int index = 0; index < userProjects.size(); index++) {
+            if (userProjects.get(index).getProjectId() == qd.getProjectId()) {
+                System.out.println(userProjects.get(index).toString());
+                List<IssuesEntity> issues = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(qd.getProjectId(), qd.getTitle(), qd.getAssignor(), qd.getAssignee(), qd.getIssueType(), qd.getStatusId());
+                if (issues.size() != 0) {
+                    for (int index2 = 0; index2 < issues.size(); index2++) {
+                        IssuesEntity issue = issues.get(index2);
+                        System.out.println(issue.toString());
+                        IssueObject oi = new IssueObject();
+                        oi.setProjectTitle(userProjects.get(index).getProjectName());
+                        oi.setIssueTitle(issues.get(index2).getTitle());
+                        UsersEntity user = userDao.findById(issues.get(index2).getAssignor());
+                        oi.setAssignor(user.getUsername());
+                        oi.setStatus(issues.get(index2).getStatusId());
+                        oi.setType(issues.get(index2).getIssueType());
+                        oi.setPermission(userProjects.get(index).getPermission());
+                        openIssues.add(oi);
+                    }
+                }
+            }
+
+        }
+        return openIssues;
+    }
+
+
+//        List<IssuesEntity> issuesEntities = issueDAO.findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(qd.getProjectId(), qd.getTitle(), qd.getAssignor(), qd.getAssignee(), qd.getIssueType(), qd.getStatusId());
+//        List<IssueObject> issues = new ArrayList<>();
+//
+//        return all;
+//    }
+//}
 
 
 //    @GetMapping("/saveIssue")
@@ -109,13 +151,6 @@ public class UserController {
 //    }
 
 
-
-
-
-
-
-
-
 //        for (int index = 0; index < userProjects.size(); index++){
 //            List<IssuesEntity> issues = issueDAO.findIssuesEntitiesByProjectId(userProjects.get(index).getProjectId());
 //            for (int index2 = 0; index2 < issues.size(); index2++){
@@ -135,20 +170,9 @@ public class UserController {
 //        }
 
 
-
-
-
-
-
-
-
-
-
-
-
 //  if assignor === sdfh && assignee ==  && ->
     // List<UsersEntity> filtered = (List<UsersEntity>) userDao.filter("filtra,,,,)
- //return filtered;
+    //return filtered;
 //    @ResponseBody
 //    @GetMapping("/getById/{id}")
 //    public Person getById(@PathVariable("id") Long personId) {
