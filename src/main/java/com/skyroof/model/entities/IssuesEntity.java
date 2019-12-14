@@ -1,5 +1,7 @@
 package com.skyroof.model.entities;
 
+import com.skyroof.skyroof.SkyroofServer;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -166,5 +168,6 @@ public class IssuesEntity {
                 ", assignor=" + assignor +
                 ", assignee=" + assignee +
                 '}';
+        //SkyroofServer.logger.i
     }
 }

@@ -19,6 +19,8 @@ public interface UserDAO extends  CrudRepository<UsersEntity, Integer> {
     UsersEntity findById(int id);
     //List<UsersEntity> findByDateOfBirthGreaterThan(Date date);
 
+    UsersEntity findUsersEntityByEmail(String email);
+
     List<UsersEntity> findUsersEntitiesByUsernameContainingAndEmailContaining(String username, String email);
     UsersEntity findByUsername(String username);
 
