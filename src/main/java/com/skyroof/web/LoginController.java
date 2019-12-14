@@ -1,13 +1,10 @@
 package com.skyroof.web;
 
-import com.skyroof.exceptions.NoProjectsFoundException;
+import com.skyroof.datatypes.LoginDetails;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")

@@ -1,5 +1,8 @@
 package com.skyroof.web;
 
+import com.skyroof.datatypes.IssueObject;
+import com.skyroof.datatypes.QueryDetails;
+import com.skyroof.datatypes.UserProjects;
 import com.skyroof.exceptions.NoProjectsFoundException;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
@@ -64,6 +67,7 @@ public class UserController {
                     oi.setAssignor(user.getUsername());
                     oi.setStatus(issues.get(index2).getStatusId());
                     oi.setType(issues.get(index2).getIssueType());
+                    oi.setIssueId(issues.get(index2).getIssueId());
                     oi.setPermission(userProjects.get(index).getPermission());
                     openIssues.add(oi);
                 }
@@ -104,12 +108,12 @@ public class UserController {
                         oi.setAssignor(user.getUsername());
                         oi.setStatus(issues.get(index2).getStatusId());
                         oi.setType(issues.get(index2).getIssueType());
+                        oi.setIssueId(issues.get(index2).getIssueId());
                         oi.setPermission(userProjects.get(index).getPermission());
                         openIssues.add(oi);
                     }
                 }
             }
-
         }
         return openIssues;
     }
