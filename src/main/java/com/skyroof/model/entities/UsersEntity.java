@@ -63,6 +63,16 @@ public class UsersEntity {
     }
 
     @Override
+    public String toString() {
+        return "UsersEntity{" +
+                "username='" + username + '\'' +
+                ", pswd='" + pswd + '\'' +
+                ", email='" + email + '\'' +
+                ", userid=" + userid +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(username, pswd, email, userid);
     }
