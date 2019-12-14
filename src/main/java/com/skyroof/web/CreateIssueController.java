@@ -14,8 +14,7 @@ public class CreateIssueController {
     private IssueDAO issueDAO;
 
     //Creates a new Issue entry in the database
-    @PostMapping("/createIssue")
-    public void createIssue(@RequestBody IssueImport issueImport) {
+    @PostMapping("/createIssue") public void createIssue(@RequestBody IssueImport issueImport) {
         IssuesEntity newIssue = new IssuesEntity();
         newIssue.setTitle(issueImport.getTitle());
         newIssue.setIssueDescription(issueImport.getDescription());
