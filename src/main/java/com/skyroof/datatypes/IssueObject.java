@@ -1,12 +1,13 @@
-package com.skyroof.model.entities;
+package com.skyroof.datatypes;
 
-public class OpenIssue {
+public class IssueObject {
     String projectTitle;
     String issueTitle;
     String assignor;
     int status;
     String type;
     String permission;
+    int issueId;
 
     public String getProjectTitle() {
         return projectTitle;
@@ -56,15 +57,24 @@ public class OpenIssue {
         this.permission = permission;
     }
 
+    public int getIssueId() {
+        return issueId;
+    }
+
+    public void setIssueId(int issueId) {
+        this.issueId = issueId;
+    }
+
     @Override
     public String toString() {
-        return "OpenIssue{" +
+        return "IssueObject{" +
                 "projectTitle='" + projectTitle + '\'' +
                 ", issueTitle='" + issueTitle + '\'' +
                 ", assignor='" + assignor + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 ", type='" + type + '\'' +
                 ", permission='" + permission + '\'' +
+                ", issueId=" + issueId +
                 '}';
     }
 }

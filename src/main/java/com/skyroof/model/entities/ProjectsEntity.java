@@ -42,4 +42,12 @@ public class ProjectsEntity {
     public int hashCode() {
         return Objects.hash(projectid, projectName);
     }
+
+    @Override
+    public String toString() {
+        return "ProjectsEntity{" +
+                "projectid=" + projectid +
+                ", projectName='" + projectName + '\'' +
+                '}';
+    }
 }
