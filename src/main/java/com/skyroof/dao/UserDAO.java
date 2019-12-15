@@ -12,9 +12,10 @@ import java.util.Map;
 
 
 @Repository
-public interface UserDAO extends  CrudRepository<UsersEntity, Integer> {
+public interface UserDAO extends CrudRepository<UsersEntity, Integer> {
     @Override
     List<UsersEntity> findAll();
+
     //HashMap<Integer, UsersEntity> findByIdLike(int userId);
     UsersEntity findById(int id);
     //List<UsersEntity> findByDateOfBirthGreaterThan(Date date);
@@ -22,6 +23,7 @@ public interface UserDAO extends  CrudRepository<UsersEntity, Integer> {
     UsersEntity findUsersEntityByEmail(String email);
 
     List<UsersEntity> findUsersEntitiesByUsernameContainingAndEmailContaining(String username, String email);
+
     UsersEntity findByUsername(String username);
 
     @Override

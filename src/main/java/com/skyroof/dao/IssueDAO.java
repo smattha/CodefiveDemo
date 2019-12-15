@@ -21,5 +21,4 @@ public interface IssueDAO extends CrudRepository<IssuesEntity, Integer> {
     List<IssuesEntity> findIssuesEntitiesByProjectIdAndTitleContainingAndAssignorAndAssigneeAndIssueTypeContainingAndStatusId(Integer projectId, String title, Integer assignor, Integer assignee, String issueType, Integer statusId);
 
 
-
 }
