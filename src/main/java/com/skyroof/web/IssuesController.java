@@ -21,4 +21,10 @@ public class IssuesController {
         return all;
     }
 
+    @RequestMapping("Issue")
+    public @ResponseBody IssuesEntity getIssue(@RequestBody String id){
+        IssuesEntity issue = issueDAO.findByIssueId(Integer.parseInt(id));
+        return issue;
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.skyroof.model.entities;
+package com.skyroof.datatypes;
 
 public class LoginDetails {
     String username;

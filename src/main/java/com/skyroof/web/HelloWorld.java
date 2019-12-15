@@ -14,9 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @RestController //
 public class HelloWorld {
     @RequestMapping("/") //zitame to resource poy brisketai katw apo to "/" (diladi t0 localhost:8081/)
-    public String index(){
-
-
+    public String index() {
 
 
         return "Hello World";

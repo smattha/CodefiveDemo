@@ -1,4 +1,5 @@
 package com.skyroof.dao;
+
 import com.skyroof.model.entities.*;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -11,5 +12,6 @@ public interface PermissionDAO extends CrudRepository<PermissionEntity, Integer>
 //    <S extends PermissionEntity> S save(S s);
 
     List<PermissionEntity> findPermissionEntitiesByUserid(int id);
+
     List<PermissionEntity> findPermissionEntitiesByProjectid(int id);
 }

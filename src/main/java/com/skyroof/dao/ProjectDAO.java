@@ -1,4 +1,5 @@
 package com.skyroof.dao;
+
 import com.skyroof.model.entities.*;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
