@@ -1,9 +1,19 @@
 package com.skyroof.datatypes;
 
+//custom class created to return to the front end just the Project ID, the Project Name and the permission of the logged in user
 public class UserProjects {
-    int projectId;
-    String projectName;
-    String permission;
+    private int projectId;
+    private String projectName;
+    private String permission;
+
+    public UserProjects() {
+    }
+
+    public UserProjects(int projectId, String projectName, String permission) {
+        this.projectId = projectId;
+        this.projectName = projectName;
+        this.permission = permission;
+    }
 
     public int getProjectId() {
         return projectId;

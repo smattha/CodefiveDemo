@@ -16,13 +16,14 @@ public class StateController {
     @Autowired
     private StatusDao statusDao;
 
+    //returns all the Status entries of the IssueStatus table
     @ResponseBody
     @GetMapping("/getStatus")
     public List<IssuestatusEntity> getStates() {
         SkyroofServer.logger.info("Skyroof microservice get states was called");
-        List<IssuestatusEntity> all = (List<IssuestatusEntity>) statusDao.findAll();
+        List<IssuestatusEntity> all = statusDao.findAll();
         SkyroofServer.logger.info(all.toString());
-        SkyroofServer.logger.info("Skyroof  microservice is about to return");
+        SkyroofServer.logger.info("Skyroof microservice is about to return");
         return all;
     }
 

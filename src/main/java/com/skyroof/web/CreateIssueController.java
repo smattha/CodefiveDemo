@@ -15,17 +15,7 @@ public class CreateIssueController {
 
     //Creates a new Issue entry in the database
     @PostMapping("/createIssue") public void createIssue(@RequestBody IssueImport issueImport) {
-        IssuesEntity newIssue = new IssuesEntity();
-        newIssue.setTitle(issueImport.getTitle());
-        newIssue.setIssueDescription(issueImport.getDescription());
-        newIssue.setIssueType(issueImport.getType());
-        newIssue.setOtherDetails(issueImport.getOtherDetails());
-        newIssue.setAssignor(issueImport.getAssignor());
-        newIssue.setAssignee(issueImport.getAssignee());
-        newIssue.setStatusId(issueImport.getStatusId());
-        newIssue.setProjectId(issueImport.getProjectId());
-        newIssue.setCreatedBy(issueImport.getUsername());
-        newIssue.setIsHidden((byte) 0);
+        IssuesEntity newIssue = new IssuesEntity(issueImport.getTitle(), issueImport.getDescription(), issueImport.getType(), issueImport.getOtherDetails(), (byte) 0, issueImport.getProjectId(), issueImport.getStatusId(), issueImport.getAssignor(), issueImport.getAssignee(), issueImport.getUsername());
         issueDAO.save(newIssue);
     }
 }

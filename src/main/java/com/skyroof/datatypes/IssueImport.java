@@ -1,16 +1,17 @@
 package com.skyroof.datatypes;
 
+
 public class IssueImport {
 
-    String title;
-    String description;
-    String type;
-    String otherDetails;
-    int assignor;
-    int assignee;
-    int statusId;
-    int projectId;
-    String username;
+    private String title;
+    private String description;
+    private String type;
+    private String otherDetails;
+    private int assignor;
+    private int assignee;
+    private int statusId;
+    private int projectId;
+    private String username;
 
     public String getTitle() {
         return title;

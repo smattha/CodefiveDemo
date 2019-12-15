@@ -1,5 +1,6 @@
 package com.skyroof.datatypes;
 
+//class created to get the necessary information from the front end, in order to run the requested query
 public class QueryDetails {
     int projectId;
     String title;
