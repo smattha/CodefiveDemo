@@ -1,7 +1,5 @@
 package com.skyroof.model.entities;
 
-import com.skyroof.skyroof.SkyroofServer;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -19,6 +17,22 @@ public class IssuesEntity {
     private int assignor;
     private int assignee;
     private String createdBy;
+
+    public IssuesEntity() {
+    }
+
+    public IssuesEntity(String title, String issueDescription, String issueType, String otherDetails, byte isHidden, int projectid, int statusid, int assignor, int assignee, String createdBy) {
+        this.title = title;
+        this.issueDescription = issueDescription;
+        this.issueType = issueType;
+        this.otherDetails = otherDetails;
+        this.isHidden = isHidden;
+        this.projectid = projectid;
+        this.statusid = statusid;
+        this.assignor = assignor;
+        this.assignee = assignee;
+        this.createdBy = createdBy;
+    }
 
     @Id
     @Column(name = "issueid")

@@ -4,7 +4,6 @@ import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +14,17 @@ public class FindUsersForProjectController {
     private UserDAO userDao;
     @Autowired
     private PermissionDAO permissionDAO;
-    @Autowired
-    private IssueDAO issueDAO;
-    @Autowired
-    private ProjectDAO projectDAO;
 
+    //find all the users with permission to a certain project
     @PostMapping("/findPeopleForProject")
     public @ResponseBody List<UsersEntity> findUsersForProject(@RequestBody String id){
+        //create a list with all the permission entries for a certain project
         List<PermissionEntity> permissionEntities = permissionDAO.findPermissionEntitiesByProjectid(Integer.parseInt(id));
         List<UsersEntity> users = new ArrayList<>();
-        for (int index = 0; index < permissionEntities.size(); index++){
-            UsersEntity u = userDao.findById(permissionEntities.get(index).getUserid());
+        //for each permission entry find the user it refers to
+        //save this user in the users List
+        for (PermissionEntity permissionEntity : permissionEntities) {
+            UsersEntity u = userDao.findById(permissionEntity.getUserid());
             users.add(u);
         }
         return users;

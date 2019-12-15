@@ -1,13 +1,27 @@
 package com.skyroof.datatypes;
 
+//custom class created to return to the front end just the necessary issue data to create the tables
 public class IssueObject {
-    String projectTitle;
-    String issueTitle;
-    String assignor;
-    int status;
-    String type;
-    String permission;
-    int issueId;
+    private String projectTitle;
+    private String issueTitle;
+    private String assignor;
+    private int status;
+    private String type;
+    private String permission;
+    private int issueId;
+
+    public IssueObject() {
+    }
+
+    public IssueObject(String projectTitle, String issueTitle, String assignor, int status, String type, String permission, int issueId) {
+        this.projectTitle = projectTitle;
+        this.issueTitle = issueTitle;
+        this.assignor = assignor;
+        this.status = status;
+        this.type = type;
+        this.permission = permission;
+        this.issueId = issueId;
+    }
 
     public String getProjectTitle() {
         return projectTitle;

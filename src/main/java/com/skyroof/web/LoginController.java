@@ -11,20 +11,17 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     @Autowired
     private UserDAO userDao;
-    @Autowired
-    private PermissionDAO permissionDAO;
-    @Autowired
-    private IssueDAO issueDAO;
-    @Autowired
-    private ProjectDAO projectDAO;
 
+    //executes the necessary checks for the login
     @PostMapping("/login")
     public @ResponseBody String login(@RequestBody LoginDetails ld){
-        System.out.println(ld.toString());
         UsersEntity user = userDao.findByUsername(ld.getUsername());
+
+        //first check if there is a user with the username provided
         if (user == null) return "Error occurred during Login";
         System.out.println("User data from db" +user.toString());
-        //else System.out.println(user.toString());
+
+        //then check if the passwords match
         if (user.getPswd().equals(ld.getPswd()))
             return "Login Successful!";
         else return "Error occurred during Login";

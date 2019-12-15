@@ -1,5 +1,6 @@
 package com.skyroof.datatypes;
 
+//class that returns to the back end the login details of the user
 public class LoginDetails {
     String username;
     String pswd;
