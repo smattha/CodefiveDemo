@@ -1,5 +1,6 @@
 package com.skyroof.web;
 
+import com.skyroof.datatypes.IssueEntityExt;
 import com.skyroof.datatypes.IssueImport;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
@@ -29,22 +30,45 @@ public class UpdateIssueController {
         return upIssue.getIssueId();
     }
 
-    @PostMapping("/updateIssueSave")
-        public @ResponseBody String updateIssueS(@RequestBody IssueImport issueImport){
-        IssuesEntity newIssue = new IssuesEntity();
-        //Kratav idies tis times issueId kai Assignor apo thn updateIssueRequest
-        newIssue.setIssueId(upIssue.getIssueId());
-        newIssue.setAssignor(upIssue.getAssignor());
-        newIssue.setCreatedBy(upIssue.getCreatedBy());
+    @PostMapping("/updateIssue")
+        public @ResponseBody String updateIssueS(@RequestBody IssueEntityExt issueImport){
+        IssuesEntity newIssue = issueDAO.findByIssueId(issueImport.getId());//new IssuesEntity();
 
-        newIssue.setTitle(issueImport.getTitle());
-        newIssue.setIssueDescription(issueImport.getDescription());
-        newIssue.setIssueType(issueImport.getType());
-        newIssue.setOtherDetails(issueImport.getOtherDetails());
-        newIssue.setAssignee(issueImport.getAssignee());
-        newIssue.setStatusId(issueImport.getStatusId());
-        newIssue.setProjectId(issueImport.getProjectId());
-        newIssue.setIsHidden((byte) 0);
+        if (!issueImport.getTitle().equals(""))
+        {
+            newIssue.setTitle(issueImport.getTitle());
+        }
+
+        if (!issueImport.getDescription().equals(""))
+        {
+            newIssue.setIssueDescription(issueImport.getDescription());
+        }
+
+        if (!issueImport.getType().equals(""))
+        {
+            newIssue.setIssueType(issueImport.getType());
+        }
+
+        if (!issueImport.getOtherDetails().equals(""))
+        {
+            newIssue.setOtherDetails(issueImport.getOtherDetails());
+        }
+
+
+        if (issueImport.getAssignee()>=0)
+        {
+            newIssue.setAssignee(issueImport.getAssignee());
+        }
+
+        if (issueImport.getStatusId()>=0)
+        {
+            newIssue.setStatusId(issueImport.getStatusId());
+        }
+
+        if (issueImport.getProjectId()>=0)
+        {
+            newIssue.setProjectId(issueImport.getProjectId());
+        }
 
         issueDAO.save(newIssue);
 
