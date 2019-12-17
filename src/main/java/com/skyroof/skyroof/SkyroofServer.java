@@ -10,9 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@SpringBootApplication //dilwnei oti einai i arxiki me8odos toy spring boot
-@ComponentScan("com.skyroof") //psaxnei olo to project kai briskei annotations ta opoia
-//enswmatwnei mesa sto project
+@SpringBootApplication
+@ComponentScan("com.skyroof")
 @EntityScan("com.skyroof")
 @EnableJpaRepositories("com.skyroof")
 

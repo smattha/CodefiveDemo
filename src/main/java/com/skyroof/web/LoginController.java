@@ -3,6 +3,7 @@ package com.skyroof.web;
 import com.skyroof.datatypes.LoginDetails;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
+import com.skyroof.skyroof.SkyroofServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,15 +16,22 @@ public class LoginController {
     //executes the necessary checks for the login
     @PostMapping("/login")
     public @ResponseBody String login(@RequestBody LoginDetails ld){
+        SkyroofServer.logger.info("Entered login() with login details " + ld.toString());
         UsersEntity user = userDao.findByUsername(ld.getUsername());
 
         //first check if there is a user with the username provided
-        if (user == null) return "Error occurred during Login";
+        if (user == null){
+            SkyroofServer.logger.info("Exited login() with error: User not found");
+            return "Error occurred during Login";
+        }
         System.out.println("User data from db" +user.toString());
 
         //then check if the passwords match
-        if (user.getPswd().equals(ld.getPswd()))
+        if (user.getPswd().equals(ld.getPswd())){
+            SkyroofServer.logger.info("Exited login() successfully");
             return "Login Successful!";
-        else return "Error occurred during Login";
+        }
+        SkyroofServer.logger.info("Exited login() with error: Password don't much");
+        return "Error occurred during Login";
     }
 }
