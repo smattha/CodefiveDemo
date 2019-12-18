@@ -6,6 +6,7 @@ import com.skyroof.datatypes.UserProjects;
 import com.skyroof.exceptions.NoProjectsFoundException;
 import com.skyroof.model.entities.*;
 import com.skyroof.dao.*;
+import com.skyroof.skyroof.SkyroofServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class UserController {
     @PostMapping("/findProjectsForUser")
     public @ResponseBody
     List<UserProjects> findProjects(@RequestBody String username) {
+        SkyroofServer.logger.info("Entered findProjects() with username: " + username);
         //Find the user by his username, then find the user's permissions
         UsersEntity user = userDao.findByUsername(username);
         List<PermissionEntity> permissions = permissionDAO.findPermissionEntitiesByUserid(user.getUserid());
@@ -43,9 +45,11 @@ public class UserController {
 
             ProjectsEntity project = projectDAO.findProjectsEntityByProjectid(permission.getProjectid());
             UserProjects up = new UserProjects(project.getProjectid(), project.getProjectName(), permission.getPermissionDescription());
+            SkyroofServer.logger.info("Project found: " + up.toString());
             userProjects.add(up);
         }
         if (userProjects.size() == 0) throw new NoProjectsFoundException();
+        SkyroofServer.logger.info("Exited findProjects()");
         return userProjects;
     }
 
@@ -56,6 +60,7 @@ public class UserController {
     List<IssueObject> showOpenIssues(@RequestBody String username) {
 
         //Get all projects the user has permissions in
+        SkyroofServer.logger.info("Entered showOpenIssues() with username: " + username);
         List<UserProjects> userProjects = findProjects(username);
         List<IssueObject> openIssues = new ArrayList<>();
         //Find all the available issues for each of the projects
@@ -68,10 +73,12 @@ public class UserController {
                 if ((issue.getStatusId() == 1) && (issue.getIsHidden() == 0)) {
                     UsersEntity user = userDao.findById(issue.getAssignor());
                     IssueObject oi = new IssueObject(userProject.getProjectName(), issue.getTitle(), user.getUsername(), issue.getStatusId(), issue.getIssueType(), userProject.getPermission(), issue.getIssueId());
+                    SkyroofServer.logger.info("Open Issue found: " + oi.toString());
                     openIssues.add(oi);
                 }
             }
         }
+        SkyroofServer.logger.info("Exited ShowOpenIssues()");
         return openIssues;
     }
 
@@ -81,14 +88,17 @@ public class UserController {
     List<IssueObject> showUserOpenIssues(@RequestBody String username) {
 
         //get all open issues
+        SkyroofServer.logger.info("Entered showUserOpenIssues() with username: " + username);
         List<IssueObject> allOpenIssues = showOpenIssues(username);
         List<IssueObject> UserOpenIssues = new ArrayList<>();
 
         //if the logged in user is also the assignor for an issue, save the issue in the UserOpenIssue list
-        for (IssueObject allOpenIssue : allOpenIssues) {
-            if (allOpenIssue.getAssignor().equals(username))
-                UserOpenIssues.add(allOpenIssue);
+        for (IssueObject openIssue : allOpenIssues) {
+            if (openIssue.getAssignor().equals(username))
+                SkyroofServer.logger.info("User-opened issue found: " + openIssue.toString());
+                UserOpenIssues.add(openIssue);
         }
+        SkyroofServer.logger.info("Exited showUserOpenIssues()");
         return UserOpenIssues;
     }
 
@@ -98,6 +108,7 @@ public class UserController {
     List<IssueObject> issueQuery(@RequestBody QueryDetails qd) {
 
         //Get all projects the user has permissions in
+        SkyroofServer.logger.info("Entered issueQuery() with query details: " + qd.toString());
         List<UserProjects> userProjects = findProjects(qd.getUsername());
         List<IssueObject> openIssues = new ArrayList<>();
         //Go through all the projects and find the one whose id matches the id given in the query
@@ -113,26 +124,13 @@ public class UserController {
                         //System.out.println(issue.toString());
                         UsersEntity user = userDao.findById(issue.getAssignor());
                         IssueObject oi = new IssueObject(userProject.getProjectName(), issue.getTitle(), user.getUsername(), issue.getStatusId(), issue.getIssueType(), userProject.getPermission(), issue.getIssueId());
+                        SkyroofServer.logger.info("Found and issue that matches the query: " + oi.toString());
                         openIssues.add(oi);
                     }
                 }
             }
         }
+        SkyroofServer.logger.info("Exited issueQuery()");
         return openIssues;
     }
 }
-
-//    @ResponseBody
-//    @GetMapping("/getById/{id}")
-//    public Person getById(@PathVariable("id") Long personId) {
-//        Optional<Person> onePerson = userDao.findById(personId);
-//
-//        return onePerson.get();
-//    }
-
-//
-//    @ResponseBody
-//    @DeleteMapping("/deletePerson/{id}")
-//    public void addnewperson(@PathVariable("id") Long personId) {
-//        userDao.deleteById(personId);
-//    }
