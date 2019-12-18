@@ -14,8 +14,6 @@ public class IssueEntityExt {
     private String username;
 
 
-
-
     public IssueEntityExt(String title, String description, String type, String otherDetails, int id, int assignee, int statusId, int projectId, String username) {
         this.title = title;
         this.description = description;

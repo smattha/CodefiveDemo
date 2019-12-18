@@ -1,14 +1,21 @@
 package com.skyroof.web;
 
+import com.skyroof.dao.IssueDAO;
+import com.skyroof.dao.PermissionDAO;
+import com.skyroof.dao.ProjectDAO;
+import com.skyroof.dao.UserDAO;
 import com.skyroof.datatypes.IssueObject;
 import com.skyroof.datatypes.QueryDetails;
 import com.skyroof.datatypes.UserProjects;
 import com.skyroof.exceptions.NoProjectsFoundException;
-import com.skyroof.model.entities.*;
-import com.skyroof.dao.*;
+import com.skyroof.model.entities.IssuesEntity;
+import com.skyroof.model.entities.PermissionEntity;
+import com.skyroof.model.entities.ProjectsEntity;
+import com.skyroof.model.entities.UsersEntity;
 import com.skyroof.skyroof.SkyroofServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +103,7 @@ public class UserController {
         for (IssueObject openIssue : allOpenIssues) {
             if (openIssue.getAssignor().equals(username))
                 SkyroofServer.logger.info("User-opened issue found: " + openIssue.toString());
-                UserOpenIssues.add(openIssue);
+            UserOpenIssues.add(openIssue);
         }
         SkyroofServer.logger.info("Exited showUserOpenIssues()");
         return UserOpenIssues;

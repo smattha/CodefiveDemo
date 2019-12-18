@@ -1,9 +1,11 @@
 package com.skyroof.web;
 
+import com.skyroof.dao.IssueDAO;
+import com.skyroof.dao.PermissionDAO;
+import com.skyroof.dao.ProjectDAO;
+import com.skyroof.dao.UserDAO;
 import com.skyroof.datatypes.IssueEntityExt;
-import com.skyroof.datatypes.IssueImport;
-import com.skyroof.model.entities.*;
-import com.skyroof.dao.*;
+import com.skyroof.model.entities.IssuesEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,10 @@ public class UpdateIssueController {
     private ProjectDAO projectDAO;
 
     IssuesEntity upIssue = new IssuesEntity();
+
     @PostMapping("/updateIssueRequest")
-    public @ResponseBody    int updateIssueR(@RequestBody IssuesEntity issuesEntity) {
+    public @ResponseBody
+    int updateIssueR(@RequestBody IssuesEntity issuesEntity) {
         //IssuesEntity upIssue = new IssuesEntity();
         upIssue.setIssueId(issuesEntity.getIssueId());
         upIssue.setAssignor(issuesEntity.getAssignor());
@@ -31,42 +35,36 @@ public class UpdateIssueController {
     }
 
     @PostMapping("/updateIssue")
-        public @ResponseBody String updateIssueS(@RequestBody IssueEntityExt issueImport){
+    public @ResponseBody
+    String updateIssueS(@RequestBody IssueEntityExt issueImport) {
         IssuesEntity newIssue = issueDAO.findByIssueId(issueImport.getId());//new IssuesEntity();
 
-        if (!issueImport.getTitle().equals(""))
-        {
+        if (!issueImport.getTitle().equals("")) {
             newIssue.setTitle(issueImport.getTitle());
         }
 
-        if (!issueImport.getDescription().equals(""))
-        {
+        if (!issueImport.getDescription().equals("")) {
             newIssue.setIssueDescription(issueImport.getDescription());
         }
 
-        if (!issueImport.getType().equals(""))
-        {
+        if (!issueImport.getType().equals("")) {
             newIssue.setIssueType(issueImport.getType());
         }
 
-        if (!issueImport.getOtherDetails().equals(""))
-        {
+        if (!issueImport.getOtherDetails().equals("")) {
             newIssue.setOtherDetails(issueImport.getOtherDetails());
         }
 
 
-        if (issueImport.getAssignee()>=0)
-        {
+        if (issueImport.getAssignee() >= 0) {
             newIssue.setAssignee(issueImport.getAssignee());
         }
 
-        if (issueImport.getStatusId()>=0)
-        {
+        if (issueImport.getStatusId() >= 0) {
             newIssue.setStatusId(issueImport.getStatusId());
         }
 
-        if (issueImport.getProjectId()>=0)
-        {
+        if (issueImport.getProjectId() >= 0) {
             newIssue.setProjectId(issueImport.getProjectId());
         }
 
@@ -74,5 +72,5 @@ public class UpdateIssueController {
 
 
         return "Issue updated";
-        }
+    }
 }

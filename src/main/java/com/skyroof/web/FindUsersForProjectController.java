@@ -1,10 +1,13 @@
 package com.skyroof.web;
 
-import com.skyroof.model.entities.*;
-import com.skyroof.dao.*;
+import com.skyroof.dao.PermissionDAO;
+import com.skyroof.dao.UserDAO;
+import com.skyroof.model.entities.PermissionEntity;
+import com.skyroof.model.entities.UsersEntity;
 import com.skyroof.skyroof.SkyroofServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,8 @@ public class FindUsersForProjectController {
 
     //find all the users with permission to a certain project
     @PostMapping("/findPeopleForProject")
-    public @ResponseBody List<UsersEntity> findUsersForProject(@RequestBody String id){
+    public @ResponseBody
+    List<UsersEntity> findUsersForProject(@RequestBody String id) {
         SkyroofServer.logger.info("Entered findUsersForProject() with id" + id);
         //create a list with all the permission entries for a certain project
         List<PermissionEntity> permissionEntities = permissionDAO.findPermissionEntitiesByProjectid(Integer.parseInt(id));

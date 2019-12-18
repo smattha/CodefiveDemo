@@ -1,11 +1,14 @@
 package com.skyroof.web;
 
+import com.skyroof.dao.IssueDAO;
+import com.skyroof.dao.UserDAO;
 import com.skyroof.datatypes.IssueEnt;
-import com.skyroof.model.entities.*;
-import com.skyroof.dao.*;
+import com.skyroof.model.entities.IssuesEntity;
+import com.skyroof.model.entities.UsersEntity;
 import com.skyroof.skyroof.SkyroofServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -26,7 +29,8 @@ public class IssuesController {
 
     //finds an issue by its id
     @RequestMapping("/Issue")
-    public @ResponseBody IssueEnt getIssue(@RequestBody String id){
+    public @ResponseBody
+    IssueEnt getIssue(@RequestBody String id) {
         SkyroofServer.logger.info("Entered getIssue() with id" + id);
         IssuesEntity issue = issueDAO.findByIssueId(Integer.parseInt(id));
         UsersEntity assignor = userDAO.findById(issue.getAssignor());

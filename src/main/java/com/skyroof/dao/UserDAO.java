@@ -1,14 +1,10 @@
 package com.skyroof.dao;
 
-import com.skyroof.model.entities.*;
-import org.springframework.data.jpa.repository.Query;
+import com.skyroof.model.entities.UsersEntity;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Repository

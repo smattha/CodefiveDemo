@@ -1,10 +1,13 @@
 package com.skyroof.web;
 
+import com.skyroof.dao.StatusDao;
+import com.skyroof.model.entities.IssuestatusEntity;
 import com.skyroof.skyroof.SkyroofServer;
-import com.skyroof.dao.*;
-import com.skyroof.model.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
